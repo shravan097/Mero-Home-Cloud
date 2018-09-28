@@ -1,0 +1,108 @@
+ {% extends "cloud/base.html" %} {% block content %}
+<div class="w3-display-container  w3-container">
+    <h1 class="w3-padding-32 w3-xxxlarge w3-center w3-bottombar">
+        <i class="fa fa-cloud"></i><br>मेरो Home Cloud
+    </h1>
+    <br><br>
+
+    <div class="w3-container w3-center">
+        {% if messages %} {% for message in messages %}
+        <p class="w3-xlarge w3-center"><i class="fa fa-check-circle" style="font-size:48px;color:green"></i> {{ message }}</p>
+        {% endfor %} {% endif %}
+        <input class="fa" oninput="w3.filterHTML('#dataTable', '.item', this.value);changeHide();emptyField()" type="text" name="search" id="search" placeholder="&#xf002; Search.."> {% if all_files.exists %}
+        <div id="table" class="w3-hide">
+            <table class="w3-table-all w3-card-8 w3-container" id="dataTable">
+                <tr class="w3-blue">
+                    <th><strong>ID</strong></th>
+                    <th><strong>FILE</strong></th>
+                    <th><strong>DATE ADDED</strong></th>
+                    <th><strong>ACTIONS</strong></th>
+                </tr>
+                {% for items in all_files %}
+                <tr class="item">
+                    <td>{{ items.id }}</td>
+                    <td>{{ items.file_name }}</td>
+                    <td>{{ items.date }}</td>
+                    <td>
+                        {% if items.password is not none  %}
+                            <a href="play/{{ items.id }}"><i class="fa fa-play"> </i></a>&nbsp&nbsp
+                            <a href="authenticate/{{ items.id }}"><i class="fa fa-download"> </i></a>&nbsp&nbsp
+                            <a href="delete/{{ items.id }}"><i class="fa fa-trash-o"> </i></a>&nbsp&nbsp
+                        {% else %}
+                            <a href="play/{{ items.id }}"><i class="fa fa-play"> </i></a>&nbsp&nbsp
+                            <a href="uploads/{{ items.id }}"><i class="fa fa-download"> </i></a>&nbsp&nbsp
+                            <a href="delete/{{ items.id }}"><i class="fa fa-trash-o"> </i></a>&nbsp&nbsp
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="w3-container w3-center w3-row w3-padding-16">
+        <div class="w3-col m6">
+
+            <a style="text-decoration: none" href="upload">
+                <div class=" w3-btn w3-card w3-hover-shadow w3-padding-64 w3-center" style="width:70%">
+                    <p class="w3-xlarge "> <i class="fa fa-upload"></i> Upload Files</p>
+                </div>
+            </a>
+
+        </div>
+        <div class="w3-col m6">
+            <a style="text-decoration: none" href="view">
+                <div class="w3-btn  w3-card w3-hover-shadow w3-padding-64 w3-center" style="width:70%">
+                    <p class="w3-xlarge "> <i class="fa fa-folder-open"></i> View Files</p>
+                </div>
+            </a>
+        </div>
+    </div>
+
+
+</div>
+
+</div>
+
+<h3 class="w3-center">Recent Files</h3>
+<hr style="height:3px;border:none;background-color:#333"> {% if recent_files.exists %}
+<table class="w3-table-all w3-card-8 w3-container">
+    <tr class="w3-green">
+        <th><strong>ID</strong></th>
+        <th><strong>FILE</strong></th>
+        <th><strong>DATE ADDED</strong></th>
+        <th><strong>ACTIONS</strong></th>
+    </tr>
+    {% for items in recent_files %}
+    <tr>
+        <td>{{ items.id }}</td>
+        <td>{{ items.file_name }}</td>
+        <td>{{ items.date }}</td>
+        <td>
+            {% if items.password is not none  %}
+                <a href="play/{{ items.id }}"><i class="fa fa-play"> </i></a>&nbsp&nbsp
+                <a href="authenticate/{{ items.id }}"><i class="fa fa-download"> </i></a>&nbsp&nbsp
+                <a href="delete/{{ items.id }}"><i class="fa fa-trash-o"> </i></a>&nbsp&nbsp
+                <a href="display/{{ items.id }}"><i class="fa fa-eye"> </i></a>
+            {% else %}
+                <a href="play/{{ items.id }}"><i class="fa fa-play"> </i></a>&nbsp&nbsp
+                <a href="uploads/{{ items.id }}"><i class="fa fa-download"> </i></a>&nbsp&nbsp
+                <a href="delete/{{ items.id }}"><i class="fa fa-trash-o"> </i></a>&nbsp&nbsp
+                <a href="display/{{ items.id }}"><i class="fa fa-eye"> </i></a>
+            {% endif %}&nbsp
+
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+
+{% else %}
+<h1> Cloud is currently empty. </h1>
+{% endif %}
+</div>
+
+
+
+{% endblock %}

@@ -1,0 +1,77 @@
+{% extends "cloud/base.html" %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>MediaElement.js 3.0 - audio/video unification library</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mediaelement/4.2.5/mediaelementplayer.css">
+    <link rel="stylesheet" href="{% static 'dist/jump-forward/jump-forward.css' %}">
+    <link rel="stylesheet" href="{% static 'dist/skip-back/skip-back.css' %}">
+
+    <link rel="stylesheet" href="{% static 'dist/chromecast/chromecast.css' %}">
+    <link rel="stylesheet" href="{% static 'dist/context-menu/context-menu.css' %}">
+    <link rel="stylesheet" href="{% static 'dist/playlist/playlist.css' %}">
+
+
+</head>
+
+<body>
+
+<div id="container">
+
+        <h3 class="w3-center w3-bottomborder w3-topbar w3-bottombar w3-leftbar w3-rightbar w3-text-black">Audio Player</h3>
+
+        <div class="media-wrapper">
+            <audio id="player2" preload="none" controls style="max-width:100%;"
+                   data-cast-title="{{ file.file_name }}"
+                   data-cast-description="This is a description for audio only"
+                   data-cast-poster="http://mediaelementjs.com/images/big_buck_bunny.jpg">
+                <source src="{{ link }}" type="audio/mp3" title="{{ file.file_name }}" data-playlist-thumbnail="http://mediaelementjs.com/images/big_buck_bunny.jpg" data-playlist-description="Lorem ipsum dolor sit amet.">
+               <source src="rtmp://s3b78u0kbtx79q.cloudfront.net/cfx/st/mp3:fake_empire-cbr" type="rtmp/video" title="Playing {{ file.file_name }}...">
+            </audio>
+        </div>
+
+    </div>
+</div>
+
+<script src="{% static 'mediaAndPlayer.js' %}"></script>
+<script src="{% static 'dist/jump-forward/jump-forward.js' %}"></script>
+<script src="{% static 'dist/skip-back/skip-back.js' %}"></script>
+<script src="{% static 'dist/speed/speed.js' %}"></script>
+<script src="{% static 'dist/chromecast/chromecast.js' %}"></script>
+<script src="{% static 'dist/context-menu/context-menu.js' %}"></script>
+<script src="{% static 'dist/playlist/playlist.js' %}"></script>
+<script id="mejs-code">
+    var mediaElements = document.querySelectorAll('video, audio');
+    for (var i = 0, total = mediaElements.length; i < total; i++) {
+        var features = ['prevtrack', 'playpause', 'nexttrack', 'current', 'progress', 'duration', 'speed', 'skipback', 'jumpforward',
+        'markers', 'volume', 'playlist', 'loop', 'shuffle', 'contextmenu'];
+        // To demonstrate the use of Chromecast with audio
+        if (mediaElements[i].tagName === 'AUDIO') {
+            features.push('chromecast');
+        }
+        new MediaElementPlayer(mediaElements[i], {
+            // This is needed to make Jump Forward to work correctly
+            pluginPath: 'https://cdnjs.cloudflare.com/ajax/libs/mediaelement/4.2.5/',
+            shimScriptAccess: 'always',
+            autoRewind: false,
+            features: features,
+            currentMessage: 'Now playing:'
+        });
+    }
+</script>
+
+</body>
+</html>
+
+{% endblock %}

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<title>W3.CSS</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<body>
+    <div class="w3-container w3-center w3-padding-64 w3-display-topmiddle">
+        <form method="post" enctype="multipart/form-data" action="/cloud/upload/">
+            {% csrf_token %} {{ form.file }}
+                <br/>
+                <br/>
+                <button type="submit">Upload</button>
+                <br/>
+                <br/>
+                <br/>
+                <label class="switch">Set Password</label>
+                {{ form.password }}
+                <br/>
+                Leave Blank If you don't want to.
+                <br/>
+        </form>
+    </div>
+</body>
+</html>

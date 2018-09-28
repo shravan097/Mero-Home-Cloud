@@ -1,0 +1,43 @@
+{% extends "cloud/base.html" %}
+{% block content %}
+
+{#    <div class="w3-hide">#}
+{#         <form method="post"  action="/cloud/authenticate/{{ id }}/" id="ask_pass">#}
+{#            {% csrf_token %}#}
+{#            {{form.client_password}}#}
+{#            <input type="submit" id="done">#}
+{#         </form>#}
+{##}
+{#    </div>#}
+
+
+    <div class="w3-hide">
+        <button onclick="document.getElementById('id01').style.display='block'" id="press" class="w3-button w3-black">Fade In Modal</button>
+    </div>
+    <div id="id01" class="w3-modal">
+                <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:300px">
+                    <div class="w3-center"><br>
+                      <form method="post"  action="/cloud/authenticate/{{ id }}/" id="ask_pass">
+                        <div class="w3-section">
+                            <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close Modal">
+                                &times;
+                            </span>
+
+                            <span class="w3-button w3-xlarge w3-hover-green w3-display-topleft" title="Close Modal">
+                              <a href="../../"><i class="fa fa-home"></i> </a>
+                            </span>
+                            {% csrf_token %}
+                            <label><b>Password</b></label>
+                            {{form.client_password}}
+                            <button class="w3-button w3-block w3-green w3-section w3-padding" type="submit">Download</button>
+                        </div>
+                      </form>
+                    </div>
+                </div>
+    </div>
+
+<script>
+document.getElementById("press").onclick();
+</script>
+
+{% endblock %}

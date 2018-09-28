@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://www.w3schools.com/lib/w3.js"></script>
+    <style>
+    body,h1 {font-family: "Raleway", sans-serif}
+    body, html {height: 100%}
+    input[type=text] {
+        width: 600px;
+        box-sizing: border-box;
+        border: 2px solid #ccc;
+        border-radius: 4px;
+        font-size: 16px;
+        background-color: white;
+        background-position: 10px 10px;
+        background-repeat: no-repeat;
+        padding: 12px 20px 12px 40px;
+        -webkit-transition: width 0.4s ease-in-out;
+        transition: width 0.4s ease-in-out;
+    }
+
+    input[type=text]:focus {
+        width: 100%;
+    }
+
+    </style>
+    <title>Home Cloud Drive</title>
+</head>
+<body>
+<script>
+function changeHide()
+{
+    var x = document.getElementById("table");
+    x.className = "w3-show";
+
+}
+function emptyField()
+{
+
+    var x = document.getElementById("search")
+    var j = document.getElementById("table")
+    if(x.value === "")
+    {
+        j.className = "w3-hide";
+    }
+}
+</script>
+{% block content %}
+{% endblock %}
+</body>
+</html>
